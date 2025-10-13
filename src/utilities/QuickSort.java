@@ -32,7 +32,7 @@ public class QuickSort {
 			
 			for (int j = low; j < high; j++) {
 				
-				if(comparator.compare(array[j], pivot) <= 0) {
+				if(comparator.compare(array[j], pivot) >= 0) {
 					
 					i++;
 					Shape temp = array[i];

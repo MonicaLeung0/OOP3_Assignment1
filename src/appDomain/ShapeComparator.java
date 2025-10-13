@@ -29,7 +29,7 @@ public class ShapeComparator {
 		@Override
 		public int compare(Shape shape1, Shape shape2) {
 			
-			return Double.compare(shape2.getHeight(), shape1.getHeight());
+			return Double.compare(shape1.getHeight(), shape2.getHeight());
 			
 		}
 		
@@ -40,7 +40,7 @@ public class ShapeComparator {
 		@Override
 		public int compare(Shape shape1, Shape shape2) {
 			
-			return Double.compare(shape2.calcBaseArea(), shape1.calcBaseArea());
+			return Double.compare(shape1.calcBaseArea(), shape2.calcBaseArea());
 			
 		}
 		
@@ -51,7 +51,7 @@ public class ShapeComparator {
 		@Override
 		public int compare(Shape shape1, Shape shape2) {
 			
-			return Double.compare(shape2.calcVolume(), shape1.calcVolume());
+			return Double.compare(shape1.calcVolume(), shape2.calcVolume());
 			
 		}
 		
