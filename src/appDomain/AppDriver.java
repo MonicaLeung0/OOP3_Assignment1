@@ -62,8 +62,14 @@ public class AppDriver {
 
 		// refer to demo00 BasicFileIO.java for a simple example on how to
 		// read data from a text file
-		String filePath = "res\\" + fileName;
-		// String filePath = fileName;
+		
+		String filePath;
+		//user passes a path or filename...
+		if(fileName.contains("\\") || fileName.contains("/") || fileName.matches("^[A-Za-z]:.*")) {
+			filePath = fileName;
+		}else {
+			filePath = "res\\" + fileName; //this is the default to res(resources ) folder....
+		}
 
 		Shape[] shapes = null;
 
@@ -194,20 +200,17 @@ public class AppDriver {
 		String sortTypeName = getSortTypeName(sortType);
 
 		// Print first Element
-		System.out.println("First element is: shapes." + shapes[0].getClass().getSimpleName() + "        " + sortTypeName
-				+ ": " + getSortValue(shapes[0], sortType));
+		System.out.printf("%-18s %-20s %-10s : %.4f%n","First element is: shapes.",shapes[0].getClass().getSimpleName(), sortTypeName, getSortValue(shapes[0], sortType));
 
 		// Print every 1000th element
 		for (int i = 999; i < shapes.length; i += 1000) {
 
-			System.out.println((i + 1) + "-th element: shapes." + shapes[i].getClass().getSimpleName() + "        "
-					+ sortTypeName + ": " + getSortValue(shapes[i], sortType));
+			System.out.printf("%-18s %-20s %-10s : %.4f%n",(i + 1) + "-th element: shapes." ,shapes[i].getClass().getSimpleName(), sortTypeName ,getSortValue(shapes[i], sortType));
 
 		}
 
 		// Print Last element
-		System.out.println("Last element is: shapes." + shapes[shapes.length - 1].getClass().getSimpleName() + "        "
-				+ sortTypeName + ": " + getSortValue(shapes[shapes.length - 1], sortType));
+		System.out.printf("%-18s %-20s %-10s : %.4f%n","Last element is: shapes.",shapes[shapes.length - 1].getClass().getSimpleName(), sortTypeName, getSortValue(shapes[shapes.length - 1], sortType));
 
 		// Print timing
 		System.out.println(algorithmName + " run time was: " + duration + " milliseconds");
