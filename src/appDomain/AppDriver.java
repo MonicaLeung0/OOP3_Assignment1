@@ -3,6 +3,7 @@ package appDomain;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
 
 import shapes.*;
 
@@ -32,6 +33,7 @@ public class AppDriver
         
         //read args
         for (String arg : args) {
+        	
             if (arg.startsWith("-f") || arg.startsWith("-F")) {
                 fileName = arg.substring(2); // get text after "-f"
             } else if (arg.startsWith("-t") || arg.startsWith("-T")) {
@@ -39,7 +41,7 @@ public class AppDriver
             } else if (arg.startsWith("-s") || arg.startsWith("-S")) {
                 sortAlgorithm = arg.substring(2); // get b, s, i, m, q, z
             }
-        }
+        }     
 
 		// refer to demo00 BasicFileIO.java for a simple example on how to
 		// read data from a text file
