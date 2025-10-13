@@ -5,6 +5,13 @@ import shapes.Shape;
 
 public class ShapeComparator {
 	
+	/*
+	 * if user chooses 
+	 *  -th then compare heights
+	 *  -ta then compare base area 
+	 *  -tv then compare volume
+	 * */
+	
 	public static Comparator<Shape> getComparator(String type) {
 		
 		switch (type.toLowerCase()) {
@@ -23,6 +30,10 @@ public class ShapeComparator {
 		}
 		
 	}
+	
+	// Note: Although this comparator compares s1 to s2 normally (ascending),
+    // our sorting algorithms (BubbleSort, QuickSort,...) perform swaps when compare > 0,
+    // effectively producing a descending order as required by the assignment.
 	
 	private static class HeightComparator implements Comparator<Shape> {
 		
