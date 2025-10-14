@@ -1,5 +1,16 @@
 package appDomain;
 
+/**
+ * Assignment 1: Complexity and Sorting
+ * 
+ * Created on October 8, 2025
+ * 
+ * @author Monica Leung
+ * @author Jasmine Cheema
+ * @author Precious Robert-Ezenta
+ * @author Mitali Vaid
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,11 +40,11 @@ public class AppDriver {
 		String sortType = null;
 		String sortAlgorithm = null;
 
-		// read args 
+		// read args
 		/*
-		 * startsWith() checks a prefix
-		 * substring(2) removes -f, -t, or -s part and thus keeps the actual value for fileName, sortType, and sortAlgorithm....
-		 * */
+		 * startsWith() checks a prefix substring(2) removes -f, -t, or -s part and thus
+		 * keeps the actual value for fileName, sortType, and sortAlgorithm....
+		 */
 		for (String arg : args) {
 
 			if (arg.startsWith("-f") || arg.startsWith("-F")) {
@@ -57,18 +68,18 @@ public class AppDriver {
 
 		// refer to demo00 BasicFileIO.java for a simple example on how to
 		// read data from a text file
-		
+
 		String filePath;
-		//user passes a path or filename...
-		if(fileName.contains("\\") || fileName.contains("/") || fileName.matches("^[A-Za-z]:.*")) {
+		// user passes a path or filename...
+		if (fileName.contains("\\") || fileName.contains("/") || fileName.matches("^[A-Za-z]:.*")) {
 			filePath = fileName;
-		}else {
-			filePath = "res\\" + fileName; //this is the default to res(resources ) folder....
+		} else {
+			filePath = "res\\" + fileName; // this is the default to res(resources ) folder....
 		}
 
 		/*
 		 * file handling and reading shapes....
-		 * */
+		 */
 		Shape[] shapes = null;
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -84,17 +95,17 @@ public class AppDriver {
 				String line = reader.readLine();
 				if (line == null)
 					break; // end of file early
-				
-				//.split("\\s+") splits the line by spaces or tabs....
+
+				// .split("\\s+") splits the line by spaces or tabs....
 				String[] parts = line.trim().split("\\s+");
-				//each shape has 3 parts: name, height and radius/edge length
+				// each shape has 3 parts: name, height and radius/edge length
 				if (parts.length != 3) {
 					System.out.println("Invalid line format: " + line);
 					continue;
 				}
 
 				String shapeName = parts[0];
-				//height
+				// height
 				double h = Double.parseDouble(parts[1]);
 				// radius or edge length....
 				double re = Double.parseDouble(parts[2]);
@@ -156,60 +167,57 @@ public class AppDriver {
 		// natural order (comparable) or other orders (comparators)
 
 		// calls helper class ShapeComparator to get the correct comparison rule....
-		//each comparator will return a custom rule for comparing two shapes....
+		// each comparator will return a custom rule for comparing two shapes....
 		/*
-		 * if user chooses 
-		 *  -th then compare heights
-		 *  -ta then compare base area 
-		 *  -tv then compare volume
-		 * */
+		 * if user chooses -th then compare heights -ta then compare base area -tv then
+		 * compare volume
+		 */
 		Comparator<Shape> comparator = ShapeComparator.getComparator(sortType);
 
 		// Benchmarking the sorting....
-		//System.nanotime() measures the time precisely....
-		//sort algorithms uses comparator to decide order....
-		//it sorts the Shape[] array....
+		// System.nanotime() measures the time precisely....
+		// sort algorithms uses comparator to decide order....
+		// it sorts the Shape[] array....
 		long starttime = System.nanoTime();
 
 		switch (sortAlgorithm.toLowerCase()) {
 
-			case "b":
-				BubbleSort.bubbleSort(shapes, comparator);
-				break;
-			case "s":
-				// SelectionSort.selectionSort(shapes, comparator);
-				break;
-			case "i":
-				// InsertionSort.insertionSort(shapes, comparator);
-				break;
-			case "m":
-				// MergeSort.mergeSort(shapes, comparator);
-				break;
-			case "q":
-				QuickSort.quickSort(shapes, comparator);
-				break;
-			case "z":
-				// z.zSort(shapes, comparator);
-				break;
+		case "b":
+			BubbleSort.bubbleSort(shapes, comparator);
+			break;
+		case "s":
+			// SelectionSort.selectionSort(shapes, comparator);
+			break;
+		case "i":
+			// InsertionSort.insertionSort(shapes, comparator);
+			break;
+		case "m":
+			// MergeSort.mergeSort(shapes, comparator);
+			break;
+		case "q":
+			QuickSort.quickSort(shapes, comparator);
+			break;
+		case "z":
+			// z.zSort(shapes, comparator);
+			break;
 
 		}
-		//long is safer to use as int can cause to overflow for large values....
+		// long is safer to use as int can cause to overflow for large values....
 		long endtime = System.nanoTime();
-		//1 second = 1,000,000,000 nanoseconds
-		//calculating how the time sorting process took in milliseconds....
+		// 1 second = 1,000,000,000 nanoseconds
+		// calculating how the time sorting process took in milliseconds....
 		long duration = (endtime - starttime) / 1000000;
 
 		System.out.println("\nSorting completed successfully!");
 
 		printSortedResults(shapes, sortType, sortAlgorithm, duration);
-		
 
 	}
-	
+
 	/*
-	 * used for printing first element (largest,since descending order), 
-	 * every 1000th element and last element. Also prints the runtime.
-	 * */
+	 * used for printing first element (largest,since descending order), every
+	 * 1000th element and last element. Also prints the runtime.
+	 */
 
 	private static void printSortedResults(Shape[] shapes, String sortType, String sortAlgorithm, long duration) {
 
@@ -218,20 +226,24 @@ public class AppDriver {
 		String sortTypeName = getSortTypeName(sortType);
 
 		// Print first Element
-		//printf() used for formatted output....
-		//%n used for new line like \n, %.4f is used to limit decimal places to 4....
-		//%-18 is left aligned and %18 is right aligned in 18-character wide field....
-		System.out.printf("%-18s%-20s%-10s : %.4f%n","First element is: shapes.",shapes[0].getClass().getSimpleName(), sortTypeName, getSortValue(shapes[0],sortType));
+		// printf() used for formatted output....
+		// %n used for new line like \n, %.4f is used to limit decimal places to 4....
+		// %-18 is left aligned and %18 is right aligned in 18-character wide field....
+		System.out.printf("%-18s%-20s%-10s : %.4f%n", "First element is: shapes.", shapes[0].getClass().getSimpleName(),
+				sortTypeName, getSortValue(shapes[0], sortType));
 
 		// Print every 1000th element
 		for (int i = 999; i < shapes.length; i += 1000) {
 
-			System.out.printf("%-18s%-20s %-10s : %.4f%n",(i + 1) + "-th element: shapes." ,shapes[i].getClass().getSimpleName(), sortTypeName ,getSortValue(shapes[i], sortType));
+			System.out.printf("%-18s%-20s %-10s : %.4f%n", (i + 1) + "-th element: shapes.",
+					shapes[i].getClass().getSimpleName(), sortTypeName, getSortValue(shapes[i], sortType));
 
 		}
 
 		// Print Last element
-		System.out.printf("%-18s%-20s%-10s : %.4f%n","Last element is: shapes.",shapes[shapes.length - 1].getClass().getSimpleName(), sortTypeName, getSortValue(shapes[shapes.length - 1], sortType));
+		System.out.printf("%-18s%-20s%-10s : %.4f%n", "Last element is: shapes.",
+				shapes[shapes.length - 1].getClass().getSimpleName(), sortTypeName,
+				getSortValue(shapes[shapes.length - 1], sortType));
 
 		// Print timing
 		System.out.println(algorithmName + " run time was: " + duration + " milliseconds");
@@ -239,31 +251,39 @@ public class AppDriver {
 	}
 
 	/*
-	 * helper methods : getSortValue(), getSortTypeName() , getAlgorithmName() ..... used to make more code readable....
-	 * */
+	 * helper methods : getSortValue(), getSortTypeName() , getAlgorithmName() .....
+	 * used to make more code readable....
+	 */
 	private static double getSortValue(Shape shape, String sortType) {
-    	
-    	switch (sortType.toLowerCase()) {
-		case "h": return shape.getHeight();
-		case "a": return shape.calcBaseArea();
-		case "v": return shape.calcVolume();  	
-		default: return 0;
-    	}
-    }
+
+		switch (sortType.toLowerCase()) {
+		case "h":
+			return shape.getHeight();
+		case "a":
+			return shape.calcBaseArea();
+		case "v":
+			return shape.calcVolume();
+		default:
+			return 0;
+		}
+	}
 
 	private static String getSortTypeName(String sortType) {
-    		
-    	switch (sortType.toLowerCase()) {
-    			
-			case "h" : return "Height";
-			case "a" : return "Area";
-			case "v" : return "Volume";
-			default : return "Value";
-			
-			
+
+		switch (sortType.toLowerCase()) {
+
+		case "h":
+			return "Height";
+		case "a":
+			return "Area";
+		case "v":
+			return "Volume";
+		default:
+			return "Value";
+
 		}
-    	
-    }
+
+	}
 
 	private static String getAlgorithmName(String sortAlgorithm) {
 
@@ -297,19 +317,22 @@ public class AppDriver {
 		System.out.println(" java -jar Sort.jar -tH -F\"C:\\temp\\shapes.txt\" -sB");
 
 	}
-	
-	//checker method to verify if array is sorted in descending order or not using given comparator....
-	//comparator<Shape> how shapes are compared height, area , or volume...
+
+	// checker method to verify if array is sorted in descending order or not using
+	// given comparator....
+	// comparator<Shape> how shapes are compared height, area , or volume...
 	private static boolean isSorted(Shape[] shapes, Comparator<Shape> comparator) {
-		//loops through every pair of consecutive elements comparing element i with element (i + 1) and stops before last index so doesn't go out of bounds....
-	    for (int i = 0; i < shapes.length - 1; i++) {
-	    	//if element i is smaller that (i+1) that means array is not sorted as smaller value is before larger what should be descending order...  
-	        if (comparator.compare(shapes[i], shapes[i + 1]) < 0) {
-	            System.out.println("NOT SORTED at position " + i);
-	            return false;
-	        }
-	    }
-	    return true;
+		// loops through every pair of consecutive elements comparing element i with
+		// element (i + 1) and stops before last index so doesn't go out of bounds....
+		for (int i = 0; i < shapes.length - 1; i++) {
+			// if element i is smaller that (i+1) that means array is not sorted as smaller
+			// value is before larger what should be descending order...
+			if (comparator.compare(shapes[i], shapes[i + 1]) < 0) {
+				System.out.println("NOT SORTED at position " + i);
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
