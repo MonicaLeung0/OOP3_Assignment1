@@ -14,7 +14,7 @@ public class QuickSort {
 		}
 		
 		private static void quickSort(Shape[] array, int low, int high, Comparator<Shape> comparator) {
-			
+			//it checks if there is more than one element....
 			if(low < high) {
 				
 				int p = partition(array, low, high, comparator);
@@ -27,11 +27,11 @@ public class QuickSort {
 		
 		private static int partition(Shape[] array, int low, int high, Comparator<Shape> comparator) {
 			
-			Shape pivot = array[high];
-			int i = low - 1;
+			Shape pivot = array[high]; //picks last element as pivot.... (pivot is reference element we compare the others to....
+			int i = low - 1; 
 			
 			for (int j = low; j < high; j++) {
-				
+				//sorts in descending order as checks >= 0 .... largest elements go to right....
 				if(comparator.compare(array[j], pivot) >= 0) {
 					
 					i++;
