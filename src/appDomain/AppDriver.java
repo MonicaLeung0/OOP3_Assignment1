@@ -186,19 +186,19 @@ public class AppDriver {
 			BubbleSort.bubbleSort(shapes, comparator);
 			break;
 		case "s":
-			// SelectionSort.selectionSort(shapes, comparator);
+			 SelectionSort.selectionSort(shapes, comparator);
 			break;
 		case "i":
-			// InsertionSort.insertionSort(shapes, comparator);
+			 InsertionSort.insertionSort(shapes, comparator);
 			break;
 		case "m":
-			// MergeSort.mergeSort(shapes, comparator);
+			 MergeSort.mergeSort(shapes, comparator);
 			break;
 		case "q":
 			QuickSort.quickSort(shapes, comparator);
 			break;
 		case "z":
-			// z.zSort(shapes, comparator);
+			 ZSort.zSort(shapes, comparator);
 			break;
 
 		}
