@@ -3,9 +3,11 @@ import java.util.Comparator;
 import shapes.Shape;
 
 
-
-
-
+/**
+ * Sorts the array of Shapes using Bubble Sort.
+ * @param array The array to be sorted.
+ * @param comparator The comparator defining the sort order.
+ */
 public class BubbleSort {
 	
 	// Bubble Sort (Descending Order)
